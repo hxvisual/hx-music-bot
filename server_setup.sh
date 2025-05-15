@@ -85,54 +85,6 @@ fi
 
 cd "$PROJECT_DIR"
 
-print_header "НАСТРОЙКА ПЕРЕМЕННЫХ ОКРУЖЕНИЯ"
-if [ ! -f ".env" ]; then
-    print_step "Создание файла .env..."
-    
-    echo -e "${YELLOW}Введите токен вашего бота (получить можно у @BotFather):${NC}"
-    read -p "> " BOT_TOKEN
-    while [ -z "$BOT_TOKEN" ]; do
-        echo -e "${RED}Токен не может быть пустым. Пожалуйста, введите токен:${NC}"
-        read -p "> " BOT_TOKEN
-    done
-
-    echo -e "${YELLOW}Введите ID администраторов бота через запятую (например: 123456789,987654321):${NC}"
-    read -p "> " ADMIN_IDS
-    while [ -z "$ADMIN_IDS" ]; do
-        echo -e "${RED}ID администраторов не может быть пустым. Пожалуйста, введите ID:${NC}"
-        read -p "> " ADMIN_IDS
-    done
-    
-    echo "BOT_TOKEN=$BOT_TOKEN" > .env
-    echo "ADMIN_IDS=$ADMIN_IDS" >> .env
-    
-    print_success "Файл .env создан с вашими данными"
-else
-    print_success "Файл .env уже существует"
-    echo -e "${YELLOW}Хотите обновить данные? (y/n)${NC}"
-    read -p "> " UPDATE_ENV
-    if [[ "$UPDATE_ENV" == "y" || "$UPDATE_ENV" == "Y" ]]; then
-        echo -e "${YELLOW}Введите токен вашего бота (получить можно у @BotFather):${NC}"
-        read -p "> " BOT_TOKEN
-        while [ -z "$BOT_TOKEN" ]; do
-            echo -e "${RED}Токен не может быть пустым. Пожалуйста, введите токен:${NC}"
-            read -p "> " BOT_TOKEN
-        done
-        
-        echo -e "${YELLOW}Введите ID администраторов бота через запятую (например: 123456789,987654321):${NC}"
-        read -p "> " ADMIN_IDS
-        while [ -z "$ADMIN_IDS" ]; do
-            echo -e "${RED}ID администраторов не может быть пустым. Пожалуйста, введите ID:${NC}"
-            read -p "> " ADMIN_IDS
-        done
-        
-        echo "BOT_TOKEN=$BOT_TOKEN" > .env
-        echo "ADMIN_IDS=$ADMIN_IDS" >> .env
-        
-        print_success "Файл .env обновлен с новыми данными"
-    fi
-fi
-
 print_header "НАСТРОЙКА ФАЙЛОВ ПРОЕКТА"
 if [ -d "$PROJECT_DIR/.git" ]; then
     print_step "Обновление кода из репозитория..."
@@ -143,6 +95,28 @@ else
     git clone https://github.com/hxvisual/hx-music-bot.git .
     print_success "Репозиторий склонирован"
 fi
+
+print_header "НАСТРОЙКА ПЕРЕМЕННЫХ ОКРУЖЕНИЯ"
+print_step "Создание файла .env..."
+    
+echo -e "${YELLOW}Введите токен вашего бота (получить можно у @BotFather):${NC}"
+read -p "> " BOT_TOKEN
+while [ -z "$BOT_TOKEN" ]; do
+    echo -e "${RED}Токен не может быть пустым. Пожалуйста, введите токен:${NC}"
+    read -p "> " BOT_TOKEN
+done
+
+echo -e "${YELLOW}Введите ID администраторов бота через запятую (например: 123456789,987654321):${NC}"
+read -p "> " ADMIN_IDS
+while [ -z "$ADMIN_IDS" ]; do
+    echo -e "${RED}ID администраторов не может быть пустым. Пожалуйста, введите ID:${NC}"
+    read -p "> " ADMIN_IDS
+done
+
+echo "BOT_TOKEN=$BOT_TOKEN" > .env
+echo "ADMIN_IDS=$ADMIN_IDS" >> .env
+
+print_success "Файл .env создан с вашими данными"
 
 print_header "ЗАПУСК БОТА"
 print_step "Остановка предыдущих контейнеров (если есть)..."
