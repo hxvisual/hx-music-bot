@@ -1,11 +1,15 @@
 # 🎵 HX Music Bot
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python" alt="Python 3.9+"/>
-  <img src="https://img.shields.io/badge/aiogram-3.0%2B-blue?style=for-the-badge" alt="aiogram 3.0+"/>
-  <img src="https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker" alt="Docker Ready"/>
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License MIT"/>
-</p>
+<div align="center">
+
+![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)
+![aiogram 3.0+](https://img.shields.io/badge/aiogram-3.0%2B-blue?style=for-the-badge)
+![Docker Ready](https://img.shields.io/badge/Docker-Ready-blue?style=for-the-badge&logo=docker)
+![License MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+</div>
+
+<hr>
 
 ## 🚀 Установка
 
@@ -37,6 +41,8 @@ ADMIN_IDS=id_администратора1,id_администратора2
 python bot.py
 ```
 
+<hr>
+
 ### Установка на сервере
 
 Для упрощения установки бота на сервере, используйте скрипт автоматической настройки:
@@ -61,16 +67,25 @@ chmod +x server_setup.sh
 - Запросит необходимые данные (токен бота, ID администраторов)
 - Настроит и запустит контейнеры Docker
 
+<hr>
+
 ### Настройка автообновления
 
-Настройте следующие секреты в вашем GitHub репозитории:
-   - `SSH_HOST`: IP-адрес вашего сервера
-   - `SSH_USERNAME`: имя пользователя SSH
-   - `SSH_PRIVATE_KEY`: приватный SSH ключ
-   - `SSH_PORT`: порт SSH (обычно 22)
-   - `PROJECT_PATH`: путь к директории проекта на сервере
+1. Перейдите в настройки вашего GitHub репозитория (вкладка Settings)
+2. В боковом меню выберите "Secrets and variables" → "Actions"
+3. Нажмите кнопку "New repository secret"
+4. Добавьте следующие секреты:
+   - `SSH_HOST`: IP-адрес вашего сервера (например, 123.45.67.89)
+   - `SSH_USERNAME`: имя пользователя SSH для подключения к серверу
+   - `SSH_PRIVATE_KEY`: содержимое приватного SSH ключа (весь файл ~/.ssh/id_rsa)
+   - `SSH_PORT`: порт SSH (обычно 22, но может быть изменен в настройках сервера)
+   - `PROJECT_PATH`: полный путь к директории проекта на сервере (например, /home/username/hx-music-bot)
+
+Эти секреты будут использоваться в GitHub Actions workflow для безопасного подключения к вашему серверу и обновления бота.
 
 При каждом push в ветку `main` будет выполняться автоматическое обновление бота на сервере.
+
+<hr>
 
 ## 🐳 Работа с Docker
 
@@ -93,9 +108,8 @@ docker-compose down
 git pull && docker-compose up -d --build
 ```
 
+<hr>
 
----
-
-<p align="center">
+<div align="center">
   Сделано с ❤️ by <a href="https://github.com/hxvisual">hxvisual</a>
-</p> 
+</div> 
