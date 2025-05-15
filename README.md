@@ -1,4 +1,6 @@
+<div align="center">
 # 🎵 HX Music Bot
+</div>
 
 <div align="center">
 
