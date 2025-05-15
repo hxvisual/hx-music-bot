@@ -77,7 +77,7 @@ async def search_track(message: types.Message):
         return
     
     # Отправляем сообщение "Ищу..." и сохраняем его для последующего редактирования
-    search_message = await message.answer(f"🔍 Ищу '{query}' на SoundCloud...")
+    search_message = await message.answer(f"🔍 Ищу '{query}'...")
     
     try:
         async with aiohttp.ClientSession() as session:
@@ -129,30 +129,26 @@ async def show_tracks_page(user_id, page):
     chat_id = results["chat_id"]
     message_id = results["message_id"]
     
-    # Update current page
     results["current_page"] = page
     
-    # Calculate start and end indices
     tracks_per_page = 10
     start_idx = (page - 1) * tracks_per_page
     end_idx = min(start_idx + tracks_per_page, len(tracks))
     
-    # Prepare message text - делаем сообщение компактнее
     total_pages = (len(tracks) + tracks_per_page - 1) // tracks_per_page
-    message_text = f"🎵 <b>Поиск:</b> <i>{query}</i>\n\n"
+    message_text = f"🎵 <b>Поиск:</b> {query}\n\n"
     
-    # Add tracks to the message - в более компактном формате
     for i in range(start_idx, end_idx):
         track = tracks[i]
-        track_number = i - start_idx + 1  # Номер в текущей странице (1-10)
-        title = track.get("title", "Без названия")
-        artist = track.get("user", {}).get("username", "Неизвестный")
+        track_number = i - start_idx + 1
+        title = track.get("title", "Без названия").replace("<", "&lt;").replace(">", "&gt;")
+        artist = track.get("user", {}).get("username", "Неизвестный").replace("<", "&lt;").replace(">", "&gt;")
         duration_ms = track.get("duration", 0)
         duration_sec = duration_ms // 1000
         minutes = duration_sec // 60
         seconds = duration_sec % 60
         
-        message_text += f"{track_number}. <b>{artist}</b> - <i>{title}</i> [{minutes}:{seconds:02d}]\n"
+        message_text += f"{track_number}. <b>{artist}</b> - {title} [{minutes}:{seconds:02d}]\n"
     
     # Create inline keyboard
     builder = InlineKeyboardBuilder()
