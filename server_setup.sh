@@ -106,15 +106,15 @@ while [ -z "$BOT_TOKEN" ]; do
     read -p "> " BOT_TOKEN
 done
 
-echo -e "${YELLOW}Введите ID администраторов бота через запятую (например: 123456789,987654321):${NC}"
-read -p "> " ADMIN_IDS
-while [ -z "$ADMIN_IDS" ]; do
-    echo -e "${RED}ID администраторов не может быть пустым. Пожалуйста, введите ID:${NC}"
-    read -p "> " ADMIN_IDS
+echo -e "${YELLOW}Введите SOUNDCLOUD_CLIENT_ID (можно получить, зарегистрировавшись на developers.soundcloud.com и создав приложение):${NC}"
+read -p "> " SOUNDCLOUD_CLIENT_ID
+while [ -z "$SOUNDCLOUD_CLIENT_ID" ]; do
+    echo -e "${RED}SOUNDCLOUD_CLIENT_ID не может быть пустым. Пожалуйста, введите ID:${NC}"
+    read -p "> " SOUNDCLOUD_CLIENT_ID
 done
 
 echo "BOT_TOKEN=$BOT_TOKEN" > .env
-echo "ADMIN_IDS=$ADMIN_IDS" >> .env
+echo "ADMIN_IDS=$SOUNDCLOUD_CLIENT_ID" >> .env
 
 print_success "Файл .env создан с вашими данными"
 
